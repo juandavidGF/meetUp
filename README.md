@@ -6,4 +6,4 @@ The first version is built with vanilla HTML and CSS.
 
 The demand test will consist in pay advertaising at Google or FB. If some persons click in the CTA (SingUp) button, the core hipotesis are validated if not It is invalidated.
 
-*The successful is the combination of discipline and take of risk*
+*The successful is the combination of discipline and take of risks*
