@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .hero-image {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80");
+      height: 25rem;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 30%;
+      transform: translate(-20%, -50%);
+      color: white;
+      margin: 0 -1rem;
+    }
+
+    .hero-text > h1 {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+
+    .hero-text button,
+    .btn {
+      border: none;
+      outline: 0;
+      display: inline-block;
+      padding: 10px 25px;
+      color: black;
+      background-color: #ddd;
+      text-align: center;
+      cursor: pointer;
+      margin-top: 1rem;
+      border-radius: 3px;
+    }
+
+    .hero-text button:hover,
+    .btn:hover {
+      background-color: #555;
+      color: white;
+    }
+
+    .features {
+      margin-bottom: 3rem;
+    }
+
+    .row {
+      margin: 4rem 1rem;
+    }
+
+    .row > p {
+      font-size: 20px;
+      font-weight: 900;
+      margin: 3rem 4px; 
+      line-height: 1.5;
+    }
+
+    .row > div > img {
+      max-width: 100%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      object-fit: contain;
+      border-radius: 2%;
+    }
+
+    @media only screen and (min-width: 768px) {
+      .hero-image {
+        height: 40rem;
+      }
+
+      .hero-text > h1 {
+        font-size: 50px;
+        max-width: 100rem;
+      }
+
+      .hero-text button {
+        font-size: 25px;
+      }
+
+      .features {
+        margin-top: 3rem;
+        max-width: 1500px;
+        margin: 3rem auto 0 auto;
+      }
+
+      .row {
+        display: flex;
+        padding: 10px 0;
+      }
+
+      .row:nth-child(even) {
+        flex-direction: row-reverse;
+      }
+
+      .row > * {
+        width: 50%;
+      }
+
+      .row > p {
+        font-size: 20px;
+        max-width: 400px;
+        margin: auto auto;
+      }
+
+      .row > div > img {
+        object-fit: contain;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 2%;
+      }
+
+      .row:nth-child(even) > div > img {
+        transform: rotate(1deg);
+      }
+
+      .row:nth-child(odd) > div > img {
+        transform: rotate(2deg);
+      }
+
+      .btn-section {
+        display: flex;
+        flex-direction: row;
+        background-color: black;
+      }
+
+      .btn-section > * {
+        width: 50%;
+      }
+
+      .btn {
+        width: 15%;
+        font-size: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 1rem;
+        margin-bottom: 15px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <section class="hero-image">
+    <div class="hero-text">
+      <h1>Organiza planes con amigos o con nuevas personas</h1>
+      <button class="btn">Registrate</button>
+    </div>
+  </section>
+  <div class="features">
+    <div class="row">
+      <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
+      <div>
+        <img src="https://images.unsplash.com/photo-1619538036719-af01c2eb1f41?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80" alt="">
+      </div>
+    </div>
+    <div class="row">
+      <p>Recibe notificaciones de los próximos planes</p>
+      <div>
+        <img src="https://images.unsplash.com/photo-1605918321755-0b5ffd8a796a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="">
+      </div>
+    </div>
+    <div class="row">
+       <p>Obten sugerencias de nuevos lugares y activdades según tus preferencias</p>
+      <div>
+        <img src="https://images.unsplash.com/photo-1612599537672-64c5f1869280?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80" alt="">
+      </div>
+    </div>
+    <div class="row">
+      <p>Encuentra eventos que estan sucediendo ahora mismo</p>
+      <div>
+        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
+      </div>
+    </div>
+    <div class="btn-section">
+      <button class="btn">Registrate</button>
+      <div></div>
+    </div>
+  </section>
+</body>
+</html>

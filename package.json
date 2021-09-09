@@ -1,0 +1,11 @@
+{
+  "name": "meetpeople",
+  "version": "1.0.0",
+  "description": "platform for meet peolple in groups",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "juan david granados",
+  "license": "ISC"
+}
