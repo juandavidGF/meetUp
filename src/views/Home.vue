@@ -1,12 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  
-  <style>
+<template>
+  <div class="home">
+    <section class="hero-image">
+      <div class="hero-text">
+        <h1>Organiza planes con amigos o con nuevas personas</h1>
+        <router-link class="btn" tag="button" to="/signUp">
+          Registrarse
+        </router-link>
+      </div>
+    </section>
+    <div class="features">
+      <div class="row">
+        <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
+        <div>
+          <img src="https://images.unsplash.com/photo-1619538036719-af01c2eb1f41?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <p>Recibe notificaciones de los próximos planes</p>
+        <div>
+          <img src="https://images.unsplash.com/photo-1605918321755-0b5ffd8a796a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <p>Obten sugerencias de nuevos lugares y activdades según tus preferencias</p>
+        <div>
+          <img src="https://images.unsplash.com/photo-1612599537672-64c5f1869280?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <p>Encuentra eventos que estan sucediendo ahora mismo</p>
+        <div>
+          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
+        </div>
+      </div>
+      <div class="btn-section">
+        <router-link class="cta-2" tag="button" to="/signUp">
+          Registrarse
+        </router-link>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
+
+export default {
+  name: 'Home',
+  components: {
+    HelloWorld
+  }
+}
+</script>
+
+<style>
     body, html {
       height: 100%;
       margin: 0;
@@ -36,8 +85,8 @@
       line-height: 1.5;
     }
 
-    .hero-text button,
-    .btn {
+    .btn,
+    .cta-2 {
       border: none;
       outline: 0;
       display: inline-block;
@@ -50,7 +99,6 @@
       border-radius: 3px;
     }
 
-    .hero-text button:hover,
     .btn:hover {
       background-color: #555;
       color: white;
@@ -86,6 +134,7 @@
     .btn-section {
       background-color: black;
       display: flex;
+      padding-top: 1rem;
     }
 
     .cta-2 {
@@ -95,6 +144,12 @@
       width: 90%;
       margin-left: auto;
       margin-right: auto;
+      cursor: pointer;
+    }
+
+    .cta-2:hover {
+      background-color: #555;
+      color: white;
     }
 
     @media only screen and (min-width: 768px) {
@@ -170,45 +225,4 @@
         margin-bottom: 15px;
       }
     }
-
   </style>
-</head>
-<body>
-  <section class="hero-image">
-    <div class="hero-text">
-      <h1>Organiza planes con amigos o con nuevas personas</h1>
-      <button>Registrarse</button>
-    </div>
-  </section>
-  <div class="features">
-    <div class="row">
-      <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
-      <div>
-        <img src="https://images.unsplash.com/photo-1619538036719-af01c2eb1f41?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80" alt="">
-      </div>
-    </div>
-    <div class="row">
-      <p>Recibe notificaciones de los próximos planes</p>
-      <div>
-        <img src="https://images.unsplash.com/photo-1605918321755-0b5ffd8a796a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="">
-      </div>
-    </div>
-    <div class="row">
-       <p>Obten sugerencias de nuevos lugares y activdades según tus preferencias</p>
-      <div>
-        <img src="https://images.unsplash.com/photo-1612599537672-64c5f1869280?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80" alt="">
-      </div>
-    </div>
-    <div class="row">
-      <p>Encuentra eventos que estan sucediendo ahora mismo</p>
-      <div>
-        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
-      </div>
-    </div>
-    <div class="btn-section">
-      <button class="btn cta-2">Registrarse</button>
-      <div></div>
-    </div>
-  </section>
-</body>
-</html>
