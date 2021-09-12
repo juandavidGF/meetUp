@@ -39,6 +39,8 @@ export default {
     async next() {
       if(this.firstName && this.secondName && this.cellPhone && this.email) {
 
+        console.log("ID_AIR", process.env.ID_AIR);
+
         let createUser = await fetch(`https://api.airtable.com/v0/${process.env.ID_AIR}/${process.env.TABLE_AIR}`, {
           body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                   \"secondName\": \"${this.secondName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n        \"email\": \"${this.email}\",\n                 }\n    }\n  ]\n}`,
           headers: {
