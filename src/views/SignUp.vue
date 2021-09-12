@@ -14,7 +14,7 @@
       <label for="email">Email</label>
       <input type="text" id="email" value="email" v-model="email">
       <br>
-      <button @click="next()">Seguiente</button>
+      <button @click="next()">Siguiente</button>
     </div>
     <div v-show="flag === 'excuse'" class="form">
       <p>Estamos trabajando para tener pronto la mejor experiencia en nuestra plataforma. Nos contactaremos pronto. Que la diversión te acompañe.</p>      
