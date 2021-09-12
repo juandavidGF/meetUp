@@ -36,7 +36,7 @@ export default {
     }
   },
   methods: {
-    async next() {
+    async next() { 
       if(this.firstName && this.secondName && this.cellPhone && this.email) {
 
         console.log("ID_AIR", process.env.ID_AIR); 
