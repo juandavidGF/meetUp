@@ -39,11 +39,11 @@ export default {
     async next() { 
       if(this.firstName && this.secondName && this.cellPhone && this.email) {
 
-        console.log("ID_AIR", process.env.VUE_APP_ID_AIR); 
+        console.log("ID_AIR", process.env.VUE_APP_ID_AIR);
 
 
         let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR}`, {
-          body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                   \"secondName\": \"${this.secondName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n        \"email\": \"${this.email}\",\n                 }\n    }\n  ]\n}`,
+          body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                   \"secondName\": \"${this.secondName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n        \"email\": \"${this.email}\"                 }\n    }\n  ]\n}`,
           headers: {
               Authorization: `Bearer ${process.env.VUE_APP_KEY_AIR}`,
               "Content-Type": "application/json"
