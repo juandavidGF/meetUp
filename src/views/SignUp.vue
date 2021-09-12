@@ -1,24 +1,27 @@
 <template>
   <div class="signUp">
-    <div class="form">
+    <div v-show="flag === 'data'" class="form">
       <h1>Registro</h1>
       <label for="firstName">Nombre</label>
-      <input type="text" id="firstName" value="FirstName" v-model="firstName">
+      <input type="text" id="firstName" value="firstName" v-model="firstName">
       <br>
       <label for="secondName">Apellidos</label>
-      <input type="text" id="secondName" value="SecondName" v-model="secondName">
+      <input type="text" id="secondName" value="secondName" v-model="secondName">
       <br>
       <label for="cellPhone">Celular</label>
-      <input type="number" id="cellPhone" value="CellPhone" v-model="cellPhone">
+      <input type="number" id="cellPhone" value="cellPhone" v-model="cellPhone">
       <br>
       <label for="email">Email</label>
-      <input type="text" id="email" value="Email" v-model="email">
+      <input type="text" id="email" value="email" v-model="email">
       <br>
-      <button>Seguiente</button>
+      <button @click="next()">Seguiente</button>
+    </div>
+    <div v-show="flag === 'excuse'" class="form">
+      <p>Estamos trabajando para tener pronto la mejor experiencia en nuestra plataforma. Nos contactaremos pronto. Que la diversión te acompañe.</p>      
+      <button @click="$router.push('/')">Me parece</button>
     </div>        
   </div>
 </template>
-
 
 <script>
 export default {
@@ -28,9 +31,33 @@ export default {
       secondName: "",
       cellPhone: "",
       city: "",
-      email: ""
+      email: "",
+      flag: "data"
     }
-  }
+  },
+  methods: {
+    async next() {
+      if(this.firstName && this.secondName && this.cellPhone && this.email) {
+
+        let createUser = await fetch(`https://api.airtable.com/v0/${process.env.ID_AIR}/${process.env.TABLE_AIR}`, {
+          body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                   \"secondName\": \"${this.secondName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n        \"email\": \"${this.email}\",\n                 }\n    }\n  ]\n}`,
+          headers: {
+              Authorization: `Bearer ${process.env.KEY_AIR}`,
+              "Content-Type": "application/json"
+          },
+          method: "POST"
+          }).then(res => res.json())
+          .catch(error => {console.error('Error:', error)})
+          .then(response => response);
+        
+
+        this.flag = 'excuse'
+      } else {
+        alert('Debes completar todos los campos')
+      }
+    }
+
+  },
 }
 </script>
 
@@ -50,9 +77,23 @@ export default {
 }
 
 button {
-  margin-top: 0.5rem;
-  margin-right: -9px;
+  margin-top: 0.6rem;
+  margin-right: -3px;
+  border-radius: 3px;
+  border-width: 1px;
+  padding: 0.4rem 0;
+  border: none;
+  outline: 0;
+  background-color: #ddd; 
+  color: black;
+  cursor: pointer;
+  border-radius: 3px;  
 }
+
+button:hover {
+      background-color: #555;
+      color: white;
+    }
 
 
 h1 {
@@ -69,8 +110,9 @@ label {
 input {
   width: 100%;
   margin: 0 auto;
-  border-radius: 5%;
-  border-width: 2px;
+  border-radius: 3px;
+  border-width: 1px;
+  padding: 4px 0;
 }
 
 </style>
