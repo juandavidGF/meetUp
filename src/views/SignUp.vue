@@ -11,6 +11,9 @@
       <label for="cellPhone">Celular</label>
       <input type="number" id="cellPhone" value="cellPhone" v-model="cellPhone">
       <br>
+      <label for="city">Ciudad</label>
+      <input type="text" id="city" value="city" v-model="city">
+      <br>
       <label for="email">Email</label>
       <input type="text" id="email" value="email" v-model="email">
       <br>
@@ -37,14 +40,14 @@ export default {
   },
   methods: {
     async next() { 
-      if(this.firstName && this.secondName && this.cellPhone && this.email) {
+      if(this.firstName && this.secondName && this.cellPhone && this.email && this.city) {
 
         console.log("ID_AIR", process.env.VUE_APP_ID_AIR);
         console.log("VERCEL_ENV", process.env.VERCEL_ENV);
 
 
         let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR}`, {
-          body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                   \"secondName\": \"${this.secondName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n        \"email\": \"${this.email}\"                 }\n    }\n  ]\n}`,
+          body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n         \"city\": \"${this.city}\",\n          \"secondName\": \"${this.secondName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n        \"email\": \"${this.email}\"                 }\n    }\n  ]\n}`,
           headers: {
               Authorization: `Bearer ${process.env.VUE_APP_KEY_AIR}`,
               "Content-Type": "application/json"
