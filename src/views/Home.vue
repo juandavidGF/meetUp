@@ -2,7 +2,7 @@
   <div class="home">
     <section class="hero-image">
       <div class="hero-text">
-        <h1>Organiza planes con amigos o con nuevas personas</h1>
+        <h1>Encuentra planes interesantes con tus amigos o unete a nuevos grupos y conoce personas</h1>
         <router-link class="btn" tag="button" to="/signUp">
           Registrarse
         </router-link>
