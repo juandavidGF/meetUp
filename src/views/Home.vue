@@ -33,12 +33,12 @@
           <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
         </div>
       </div>
-      <div class="btn-section">
-        <router-link class="cta-2" tag="button" to="/signUp">
-          Registrarse
-        </router-link>
-        <div></div>
-      </div>
+    </div>
+    <div class="btn-section">
+      <router-link class="cta-2" tag="button" to="/signUp">
+        Registrarse
+      </router-link>
+      <div></div>
     </div>
   </div>
 </template>
@@ -152,6 +152,18 @@ export default {
       color: white;
     }
 
+    @media only screen and (min-width: 1800px) {
+      .hero-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        margin: 0 0;
+      }
+                  
+    }
+
     @media only screen and (min-width: 768px) {
       .hero-image {
         height: 40rem;
@@ -225,4 +237,5 @@ export default {
         margin-bottom: 15px;
       }
     }
+
   </style>
