@@ -2,43 +2,35 @@
   <div class="home">
     <section class="hero-image">
       <div class="hero-text">
-        <h1>Encuentra planes interesantes con tus amigos o unete a nuevos grupos y conoce personas</h1>
-        <router-link class="btn" tag="button" to="/signUp">
+        <h1>Conectamos grupos de amigos con lugares</h1>
+        <h5>Registra tu negocio y consigue más clientes.</h5>
+        <a class="btn" href="#form">Registrarse</a>
+        <!-- <router-link class="btn" tag="button" to="/signUp">
           Registrarse
-        </router-link>
+        </router-link> -->
       </div>
     </section>
-    <div class="features">
-      <div class="row">
-        <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
-        <div>
-          <img src="https://images.unsplash.com/photo-1619538036719-af01c2eb1f41?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1301&q=80" alt="">
-        </div>
+    <div class="signUp">
+      <div id="form">
+        <h1>Registro</h1>
+        <label for="label1">Nombre</label>
+        <input type="text" id="label1" value="firstName" v-model="firstName">
+        <br>
+        <label for="label2">Apellidos</label>
+        <input type="text" id="label2" value="secondName" v-model="secondName">
+        <br>
+        <label for="label3">Celular</label>
+        <input type="number" id="label3" value="cellPhone" v-model="cellPhone">
+        <br>
+        <label for="label4">Ciudad</label>
+        <input type="text" id="label5" value="city" v-model="city">
+        <br>
+        <label for="label5">Image</label>
+        <input type="file" id="label5" value="email" @change="changeFiles">
+        <br>
+        <button @click="next()">Siguiente</button>
       </div>
-      <div class="row">
-        <p>Recibe notificaciones de los próximos planes</p>
-        <div>
-          <img src="https://images.unsplash.com/photo-1605918321755-0b5ffd8a796a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="">
-        </div>
-      </div>
-      <div class="row">
-        <p>Obten sugerencias de nuevos lugares y activdades según tus preferencias</p>
-        <div>
-          <img src="https://images.unsplash.com/photo-1612599537672-64c5f1869280?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80" alt="">
-        </div>
-      </div>
-      <div class="row">
-        <p>Encuentra eventos que estan sucediendo ahora mismo</p>
-        <div>
-          <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
-        </div>
-      </div>
-    </div>
-    <div class="btn-section">
-      <router-link class="cta-2" tag="button" to="/signUp">
-        Registrarse
-      </router-link>
-      <div></div>
+      <img id="output" width="300" height="300"/>
     </div>
   </div>
 </template>
@@ -51,6 +43,44 @@ export default {
   name: 'Home',
   components: {
     HelloWorld
+  },
+  data () {
+    return {
+      label1: "",
+      label2: "",
+      label3: "",
+      label4: "",
+      label5: "",
+    }
+  },
+  methods: {
+    async next() {
+      if(this.label1 && this.label2 && this.label3 && this.label4 && this.label5) {
+        let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR_PLACES}`, {
+          body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"Name\": \"${this.label1}\",\n         \"description\": \"${this.label2}\",\n          \"openDates\": \"${this.label3}\",\n                \"city\": \"${this.label4}\",\n        \"email\": \"${this.email}\"                 }\n    }\n  ]\n}`,
+          headers: {
+              Authorization: `Bearer ${process.env.VUE_APP_KEY_AIR}`,
+              "Content-Type": "application/json"
+          },
+          method: "POST"
+          }).then(res => res.json())
+          .catch(error => {console.error('Error:', error)})
+          .then(response => response);
+        
+      } else {
+        alert('Debes completar todos los campos')
+      }
+    },
+    changeFiles(event) {
+      var reader = new FileReader();
+      reader.onload = function(){
+        var output = document.getElementById('output');
+        output.src = reader.result;
+      };
+      reader.readAsDataURL(event.target.files[0]);
+
+      //console.log(this.$refs.miarchivo.files);
+    },
   }
 }
 </script>
@@ -60,6 +90,7 @@ export default {
       height: 100%;
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
+      scroll-behavior: smooth;
     }
 
     .hero-image {
@@ -81,7 +112,7 @@ export default {
     }
 
     .hero-text > h1 {
-      font-size: 25px;
+      font-size: 20px;
       line-height: 1.5;
     }
 
@@ -104,52 +135,61 @@ export default {
       color: white;
     }
 
-    .features {
-      margin-bottom: 3rem;
+    a {
+      text-decoration: none;
     }
 
-    .row {
-      margin: 4rem 1rem;
+    .signUp {
+      margin-top: 5rem;
+      padding-bottom: 4rem;
     }
 
-    .row > p {
-      max-width: 400px;
-      width: 100%;
-      margin: 0 auto 3rem auto;
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 1.5;
-    }
-
-    .row > div > img {
-      max-width: 400px;
-      width: 100%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      object-fit: contain;
-      border-radius: 2%;
-    }
-
-    .btn-section {
-      background-color: black;
+    #form {
       display: flex;
-      padding-top: 1rem;
+      flex-direction: column;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      padding: 1rem 2.5rem 2rem 2rem;
     }
 
-    .cta-2 {
-      padding: 0.7rem 1rem 0.7rem 1rem;
-      margin-bottom: 15px;
-      max-width: 400px;
-      width: 90%;
-      margin-left: auto;
-      margin-right: auto;
+    button {
+      margin-top: 0.6rem;
+      margin-right: -3px;
+      border-radius: 3px;
+      border-width: 1px;
+      padding: 0.4rem 0;
+      border: none;
+      outline: 0;
+      background-color: #ddd; 
+      color: black;
       cursor: pointer;
+      border-radius: 3px;  
     }
 
-    .cta-2:hover {
-      background-color: #555;
-      color: white;
+    button:hover {
+          background-color: #555;
+          color: white;
+        }
+
+
+    h1 {
+      margin: 3rem auto 2rem auto;
+    }
+
+    label {
+      text-align: start;
+      margin-bottom: 3px;
+      color:dimgrey;
+      font-size: 15px;
+    }
+
+    input {
+      width: 100%;
+      margin: 0 auto;
+      border-radius: 3px;
+      border-width: 1px;
+      padding: 4px 0;
     }
 
     @media only screen and (min-width: 1800px) {
@@ -176,6 +216,10 @@ export default {
 
       .hero-text button {
         font-size: 25px;
+      }
+
+      #form {
+        padding: 1rem 4.5rem 2rem 4rem;
       }
 
       .features {
