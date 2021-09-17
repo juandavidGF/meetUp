@@ -4,13 +4,13 @@
       <div class="hero-text">
         <h1>Conectamos grupos de amigos con lugares</h1>
         <h5>Registra tu negocio y consigue más clientes.</h5>
-        <a class="btn" href="#form">Registrarse</a>
+        <a class="btn" href="#formm">Registrarse</a>
         <!-- <router-link class="btn" tag="button" to="/signUp">
           Registrarse
         </router-link> -->
       </div>
     </section>
-    <div class="signUp">
+    <!--<div class="signUp">
       <div id="form">
         <h1>Registro</h1>
         <label for="label1">Nombre</label>
@@ -31,7 +31,15 @@
         <button @click="next()">Siguiente</button>
       </div>
       <img id="output" width="300" height="300"/>
-    </div>
+    </div> -->
+
+    <iframe class="airtable-embed" id="formm" src="https://airtable.com/embed/shr4Y977BXqX1QFMS?backgroundColor=red" 
+    frameborder="0" onmousewheel="" 
+    width="100%" 
+    
+    style="background: transparent; border: 1px solid #ccc;">
+    </iframe>
+
   </div>
 </template>
 
@@ -137,6 +145,10 @@ export default {
 
     a {
       text-decoration: none;
+    }
+
+    .airtable-embed {
+      height:100vw;
     }
 
     .signUp {

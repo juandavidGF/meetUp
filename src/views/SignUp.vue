@@ -22,7 +22,10 @@
     <div v-show="flag === 'excuse'" class="form">
       <p>Estamos trabajando para tener pronto la mejor experiencia en nuestra plataforma. Nos contactaremos pronto. Que la diversión te acompañe.</p>      
       <button @click="$router.push('/')">Me parece</button>
-    </div>        
+    </div>
+
+
+
   </div>
 </template>
 
