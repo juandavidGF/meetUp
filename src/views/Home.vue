@@ -33,10 +33,12 @@
       <img id="output" width="300" height="300"/>
     </div> -->
 
-    <iframe class="airtable-embed" id="formm" src="https://airtable.com/embed/shr4Y977BXqX1QFMS?backgroundColor=red" 
+  
+    <iframe class="airtable-embed airtable-dynamic-height form-airtable" 
+    src="https://airtable.com/embed/shr4Y977BXqX1QFMS?backgroundColor=red" 
     frameborder="0" onmousewheel="" 
     width="100%" 
-    
+    height="1331"
     style="background: transparent; border: 1px solid #ccc;">
     </iframe>
 
@@ -44,6 +46,11 @@
 </template>
 
 <script>
+
+
+// if (element.classList.contains('message')) {
+//   alert('submited')
+// }
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 
@@ -60,6 +67,11 @@ export default {
       label4: "",
       label5: "",
     }
+  },
+  mounted() {
+    let externalScript = document.createElement('script')
+    externalScript.setAttribute('src', 'https://static.airtable.com/js/embed/embed_snippet_v1.js')
+    document.head.appendChild(externalScript)
   },
   methods: {
     async next() {
@@ -88,6 +100,9 @@ export default {
       reader.readAsDataURL(event.target.files[0]);
 
       //console.log(this.$refs.miarchivo.files);
+    },
+    hola() {
+      console.log('hola');
     },
   }
 }
@@ -147,10 +162,6 @@ export default {
       text-decoration: none;
     }
 
-    .airtable-embed {
-      height:100vw;
-    }
-
     .signUp {
       margin-top: 5rem;
       padding-bottom: 4rem;
@@ -180,10 +191,9 @@ export default {
     }
 
     button:hover {
-          background-color: #555;
-          color: white;
-        }
-
+      background-color: #555;
+      color: white;
+    }
 
     h1 {
       margin: 3rem auto 2rem auto;
