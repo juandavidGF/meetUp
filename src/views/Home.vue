@@ -33,14 +33,18 @@
       <img id="output" width="300" height="300"/>
     </div> -->
 
-  
-    <iframe class="airtable-embed airtable-dynamic-height form-airtable" 
-    src="https://airtable.com/embed/shr4Y977BXqX1QFMS?backgroundColor=red" 
-    frameborder="0" onmousewheel="" 
-    width="100%" 
-    height="1331"
-    style="background: transparent; border: 1px solid #ccc;">
-    </iframe>
+    <button @click="si()">Siiii</button>
+
+
+    <div class="grid">
+      <iframe class="airtable-embed airtable-dynamic-height form-airtable" 
+      src="https://airtable.com/embed/shr4Y977BXqX1QFMS?backgroundColor=red" 
+      frameborder="0" onmousewheel="" 
+      width="100%" 
+      height="1331"
+      style="background: transparent; border: 1px solid #ccc;">
+      </iframe>
+    </div>  
 
   </div>
 </template>
@@ -66,14 +70,54 @@ export default {
       label3: "",
       label4: "",
       label5: "",
+      element: "",
     }
   },
   mounted() {
     let externalScript = document.createElement('script')
     externalScript.setAttribute('src', 'https://static.airtable.com/js/embed/embed_snippet_v1.js')
     document.head.appendChild(externalScript)
+
+    let jQueryScript = document.createElement('script')
+    jQueryScript.setAttribute('src','https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
+    document.head.appendChild(jQueryScript)
+
+    // const mutationObserver = new MutationObserver(this.callback)
+
+    // mutationObserver.observe(
+    //   document.querySelector('main'),
+    //   { attributes: true }
+    // )
+
+    // this.element = document.querySelector('main');
+    // element.classList.contains('status');
+
+  },
+  created() {
+    //console.log('querySelector#main', document.querySelector('main'));
   },
   methods: {
+    si() {
+      let iframe = document.querySelector('iframe');
+      // let iDoc = iframe.contentWindow || iframe.contentDocument;
+      // iDoc = iDoc.document;
+      // iDoc = iDoc[0]
+      // iDoc.body.addEventListener('afterLayout', function(){
+      //   console.log('works');
+      // });
+      
+      $(document).ready(function(){
+        var frame = $('iframe')
+        let contents = frame.contents()
+        let body = contents.find('body')
+        console.log('body', frame.iframe)
+      });
+
+      //var iframe = document.getElementsByClassName("status");
+      //console.log('iframe', iframe);
+      // let status = element.classList.contains('status');
+      // console.log('status',status);
+    },
     async next() {
       if(this.label1 && this.label2 && this.label3 && this.label4 && this.label5) {
         let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR_PLACES}`, {
@@ -104,6 +148,10 @@ export default {
     hola() {
       console.log('hola');
     },
+    callback(mutationsList, observer) {
+      console.log('Mutations:', mutationsList)
+      console.log('Observer:', observer)
+    }
   }
 }
 </script>
