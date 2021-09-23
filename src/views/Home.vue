@@ -8,6 +8,14 @@
         </router-link>
       </div>
     </section>
+    <div v-if="!loading" class="mb-10 mx-auto pt-14 px-2 max-w-5xl md:mx-0 md:pt-32 xl:max-w-6xl" style="margin-left: auto; margin-right:auto;">
+      <h1 class="text-2xl font-bold pb-10 pt-2 md:pt-16 md:text-5xl md:pb-20 md:pt-0">Actividades</h1>
+      <div class="grid grid-cols-2 gap-y-1 gap-x-3 md:grid-cols-4">
+        <div v-for="site in sites" :key="site.id">
+          <Card :id="site.id" :name="site.fields.name" :description="site.fields.description" :image="site.fields.image" :city="site.fields.city" />
+        </div>
+      </div>
+    </div>
     <div class="features">
       <div class="row">
         <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
@@ -45,13 +53,38 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import Card from "../components/card.vue"
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    Card
+  },
+  data() {
+    return {
+      sites: [],
+      loading: false
+    }
+  },
+  async created() {
+    let records = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR_PLACES}?maxRecords=10&view=Grid%20view`, {
+      // body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"Name\": \"${this.label1}\",\n         \"description\": \"${this.label2}\",\n          \"openDates\": \"${this.label3}\",\n                \"city\": \"${this.label4}\",\n        \"email\": \"${this.email}\"                 }\n    }\n  ]\n}`,
+      headers: {
+          Authorization: `Bearer ${process.env.VUE_APP_KEY_AIR}`,
+          "Content-Type": "application/json"
+      },
+      method: "GET"
+      }).then(res => res.json())
+      .catch(error => {console.error('Error:', error)})
+      .then(response => response);
+
+    this.sites = records.records
+    console.log('records', records);
+    console.log('records.records[1].fields.name', records.records[1].fields.name);
+  },
+  methods: {
+
+  },
 }
 </script>
 
