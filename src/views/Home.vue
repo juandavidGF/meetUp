@@ -1,22 +1,15 @@
 <template>
   <div class="home">
     <section class="hero-image">
-      <div class="hero-text">
+      <div class="hero-text mt-10">
         <h1>Encuentra planes interesantes con tus amigos o unete a nuevos grupos y conoce personas</h1>
         <router-link class="btn" tag="button" to="/signUp">
           Registrarse
         </router-link>
       </div>
     </section>
-    <div v-if="!loading" class="mb-10 mx-auto pt-14 px-2 max-w-5xl md:mx-0 md:pt-32 xl:max-w-6xl" style="margin-left: auto; margin-right:auto;">
-      <h1 class="text-2xl font-bold pb-10 pt-2 md:pt-16 md:text-5xl md:pb-20 md:pt-0">Actividades</h1>
-      <div class="grid grid-cols-2 gap-y-1 gap-x-3 md:grid-cols-4">
-        <div v-for="site in sites" :key="site.id">
-          <Card :id="site.id" :name="site.fields.name" :description="site.fields.description" :image="site.fields.image" :city="site.fields.city" />
-        </div>
-      </div>
-    </div>
-    <div class="features">
+    <!-- How It Wokk -->
+    <div class="features" id="howItWork">
       <div class="row">
         <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
         <div>
@@ -42,6 +35,16 @@
         </div>
       </div>
     </div>
+    <!-- Avtivities -->
+    <div v-if="!loading" id="activities"
+    class="mb-10 mx-auto pt-4 px-2 max-w-5xl md:mx-0 md:pt-12 xl:max-w-6xl" style="margin-left: auto; margin-right:auto;">
+      <h1 class="text-2xl font-bold pb-14 pt-2 md:pt-16 md:text-5xl md:pb-28 md:pt-0">Actividades</h1>
+      <div class="">
+        <div v-for="site in sites" :key="site.id">
+          <CardLarge :id="site.id" :name="site.fields.name" :description="site.fields.description" :image="site.fields.image" :city="site.fields.city" />
+        </div>
+      </div>
+    </div>
     <div class="btn-section">
       <router-link class="cta-2" tag="button" to="/signUp">
         Registrarse
@@ -53,12 +56,12 @@
 
 <script>
 // @ is an alias to /src
-import Card from "../components/card.vue"
+import CardLarge from "../components/cardLarge.vue"
 
 export default {
   name: 'Home',
   components: {
-    Card
+    CardLarge
   },
   data() {
     return {
