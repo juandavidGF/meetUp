@@ -56,8 +56,11 @@
     <div v-if="open == true"
     class="fixed z-20 pt-28 px-4 left-0 top-0 w-full h-full overflow-auto"
     style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
-      <div @click="next('notClose')" class="bg-white w-72 m-auto rounded-md">
-        <div @click="next('close')" class="flex justify-end mr-2 pt-1 text-gray-500 cursor-pointer">X</div>
+      <div class="bg-white w-72 m-auto rounded-md">
+        <div class="flex flex-row justify-between">
+          <div></div>
+          <div @click="next('close')" class="flex justify-end mr-2 pt-1 text-gray-500 cursor-pointer">X</div>
+        </div>
         <!-- <h1 class="bg-gray-100 py-2 -mt-8">{{action}}</h1> -->
         <div v-if="data=== 'first'" class="form px-4 pt-8">
           <label for="firstName">Nombre</label>
