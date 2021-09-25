@@ -98,10 +98,9 @@ button {
 }
 
 button:hover {
-      background-color: #555;
-      color: white;
-    }
-
+  background-color: #555;
+  color: white;
+}
 
 h1 {
   margin: 3rem auto 2rem auto;

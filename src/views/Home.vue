@@ -41,7 +41,8 @@
       <h1 class="text-2xl font-bold pb-14 pt-2 md:pt-16 md:text-5xl md:pb-28 md:pt-0">Actividades</h1>
       <div class="">
         <div v-for="site in sites" :key="site.id">
-          <CardLarge :id="site.id" :name="site.fields.name" :description="site.fields.description" :image="site.fields.image" :city="site.fields.city" />
+          <CardLarge v-on:joinGroup="cta('joinGroup')" v-on:inviteFriends="cta('inviteFriends')"
+          :id="site.id" :name="site.fields.name" :description="site.fields.description" :image="site.fields.image" :city="site.fields.city" />
         </div>
       </div>
     </div>
@@ -51,22 +52,60 @@
       </router-link>
       <div></div>
     </div>
+    <!-- modal  -->
+    <div v-if="open == true"
+    class="fixed z-20 pt-28 px-4 left-0 top-0 w-full h-full overflow-auto"
+    style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
+      <div @click="next('notClose')" class="bg-white w-72 m-auto rounded-md">
+        <div @click="next('close')" class="flex justify-end mr-2 pt-1 text-gray-500 cursor-pointer">X</div>
+        <!-- <h1 class="bg-gray-100 py-2 -mt-8">{{action}}</h1> -->
+        <div v-if="data=== 'first'" class="form px-4 pt-8">
+          <label for="firstName">Nombre</label>
+          <input type="text" id="firstName" value="firstName" v-model="firstName">
+          <br>
+          <label for="cellPhone">Celular</label>
+          <input type="number" id="cellPhone" value="cellPhone" v-model="cellPhone">
+          <br>
+          <label for="email">Email</label>
+          <input type="text" id="email" value="email" v-model="email">
+          <br>
+          <button @click="next('first')" class="bg-blue-400 w-full py-1 my-3 rounded">Siguiente</button>
+        </div>
+        <div v-if="data=== 'second'" class="form px-4 pt-8">
+          <label for="firstName">uno</label>
+          <input type="text" id="firstName" value="firstName" v-model="firstName">
+          <br>
+          <label for="cellPhone">dos</label>
+          <input type="number" id="cellPhone" value="cellPhone" v-model="cellPhone">
+          <br>
+          <label for="email">tres</label>
+          <input type="text" id="email" value="email" v-model="email">
+          <br>
+          <button @click="next('first')" class="bg-blue-400 w-full py-1 my-3 rounded">Siguiente</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CardLarge from "../components/cardLarge.vue"
+import Modal from "../components/modal.vue"
 
 export default {
   name: 'Home',
   components: {
-    CardLarge
+    CardLarge,
+    Modal
   },
   data() {
     return {
       sites: [],
-      loading: false
+      loading: false,
+      data: "first",
+      open: false,
+      action: ""
     }
   },
   async created() {
@@ -86,192 +125,229 @@ export default {
     console.log('records.records[1].fields.name', records.records[1].fields.name);
   },
   methods: {
-
+    next(flag) {
+      if (flag === 'first') {
+        this.flag = second
+      } else if (flag === 'close') {
+        this.open = false
+      }
+    },
+    cta(action) {
+      this.action = action
+      this.open = true
+    }
   },
 }
 </script>
 
 <style>
-    body, html {
-      height: 100%;
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-    }
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-    .hero-image {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80");
-      height: 25rem;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      position: relative;
-    }
+.hero-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1350&q=80");
+  height: 25rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
 
-    .hero-text {
-      position: absolute;
-      top: 50%;
-      left: 30%;
-      transform: translate(-20%, -50%);
-      color: white;
-      margin: 0 -1rem;
-    }
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-20%, -50%);
+  color: white;
+  margin: 0 -1rem;
+}
 
-    .hero-text > h1 {
-      font-size: 25px;
-      line-height: 1.5;
-    }
+.hero-text > h1 {
+  font-size: 25px;
+  line-height: 1.5;
+}
 
-    .btn,
-    .cta-2 {
-      border: none;
-      outline: 0;
-      display: inline-block;
-      padding: 10px 25px;
-      color: black;
-      background-color: #ddd;
-      text-align: center;
-      cursor: pointer;
-      margin-top: 1rem;
-      border-radius: 3px;
-    }
+.btn,
+.cta-2 {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 10px 25px;
+  color: black;
+  background-color: #ddd;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 1rem;
+  border-radius: 3px;
+}
 
-    .btn:hover {
-      background-color: #555;
-      color: white;
-    }
+.btn:hover {
+  background-color: #555;
+  color: white;
+}
 
-    .features {
-      margin-bottom: 3rem;
-    }
+.features {
+  margin-bottom: 3rem;
+}
 
-    .row {
-      margin: 4rem 1rem;
-    }
+.row {
+  margin: 4rem 1rem;
+}
 
-    .row > p {
-      max-width: 400px;
-      width: 100%;
-      margin: 0 auto 3rem auto;
-      font-size: 20px;
-      font-weight: 900;
-      line-height: 1.5;
-    }
+.row > p {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto 3rem auto;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1.5;
+}
 
-    .row > div > img {
-      max-width: 400px;
-      width: 100%;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-      object-fit: contain;
-      border-radius: 2%;
-    }
+.row > div > img {
+  max-width: 400px;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  object-fit: contain;
+  border-radius: 2%;
+}
 
-    .btn-section {
-      background-color: black;
-      display: flex;
-      padding-top: 1rem;
-    }
+.btn-section {
+  background-color: black;
+  display: flex;
+  padding-top: 1rem;
+}
 
-    .cta-2 {
-      padding: 0.7rem 1rem 0.7rem 1rem;
-      margin-bottom: 15px;
-      max-width: 400px;
-      width: 90%;
-      margin-left: auto;
-      margin-right: auto;
-      cursor: pointer;
-    }
+.cta-2 {
+  padding: 0.7rem 1rem 0.7rem 1rem;
+  margin-bottom: 15px;
+  max-width: 400px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
 
-    .cta-2:hover {
-      background-color: #555;
-      color: white;
-    }
+.cta-2:hover {
+  background-color: #555;
+  color: white;
+}
 
-    @media only screen and (min-width: 1800px) {
-      .hero-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        margin: 0 0;
-      }
-                  
-    }
+@media only screen and (min-width: 1800px) {
+  .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    margin: 0 0;
+  }
+              
+}
 
-    @media only screen and (min-width: 768px) {
-      .hero-image {
-        height: 40rem;
-      }
+@media only screen and (min-width: 768px) {
+  .hero-image {
+    height: 40rem;
+  }
 
-      .hero-text > h1 {
-        font-size: 50px;
-        max-width: 100rem;
-      }
+  .hero-text > h1 {
+    font-size: 50px;
+    max-width: 100rem;
+  }
 
-      .hero-text button {
-        font-size: 25px;
-      }
+  .hero-text button {
+    font-size: 25px;
+  }
 
-      .features {
-        margin-top: 3rem;
-        max-width: 1500px;
-        margin: 3rem auto 0 auto;
-      }
+  .features {
+    margin-top: 3rem;
+    max-width: 1500px;
+    margin: 3rem auto 0 auto;
+  }
 
-      .row {
-        display: flex;
-        padding: 10px 0;
-      }
+  .row {
+    display: flex;
+    padding: 10px 0;
+  }
 
-      .row:nth-child(even) {
-        flex-direction: row-reverse;
-      }
+  .row:nth-child(even) {
+    flex-direction: row-reverse;
+  }
 
-      .row > * {
-        width: 50%;
-      }
+  .row > * {
+    width: 50%;
+  }
 
-      .row > p {
-        font-size: 20px;
-        max-width: 400px;
-        margin: auto auto;
-      }
+  .row > p {
+    font-size: 20px;
+    max-width: 400px;
+    margin: auto auto;
+  }
 
-      .row > div > img {
-        object-fit: contain;
-        max-width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-        border-radius: 2%;
-      }
+  .row > div > img {
+    object-fit: contain;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 2%;
+  }
 
-      .row:nth-child(even) > div > img {
-        transform: rotate(1deg);
-      }
+  .row:nth-child(even) > div > img {
+    transform: rotate(1deg);
+  }
 
-      .row:nth-child(odd) > div > img {
-        transform: rotate(2deg);
-      }
+  .row:nth-child(odd) > div > img {
+    transform: rotate(2deg);
+  }
 
-      .btn-section {
-        /* display: flex; */
-        /* flex-direction: row; */
-        background-color: black;
-        margin-top: 7rem;
-        padding: 10px 0;
-      }
+  .btn-section {
+    /* display: flex; */
+    /* flex-direction: row; */
+    background-color: black;
+    margin-top: 7rem;
+    padding: 10px 0;
+  }
 
-      .cta-2 {
-        /* display: flex; */
-        /* width: 90%; */
-        font-size: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        padding: 1rem;
-        margin-bottom: 15px;
-      }
-    }
+  .cta-2 {
+    /* display: flex; */
+    /* width: 90%; */
+    font-size: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    margin-bottom: 15px;
+  }
+}
 
-  </style>
+.signUp {
+  margin-top: 5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  margin: 0 auto;
+  padding: 1rem 2.5rem 1rem 2rem;
+}
+
+label {
+  text-align: start;
+  margin-bottom: 3px;
+  color:dimgrey;
+  font-size: 15px;
+}
+
+input {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 3px;
+  border-width: 1px;
+  padding: 4px 0;
+}
+
+</style>
