@@ -111,7 +111,7 @@ export default {
     }
   },
   async created() {
-    let records = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR_PLACES}?maxRecords=10&view=Grid%20view`, {
+    let records = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR_PLACES}?maxRecords=20&view=Grid%20view`, {
       // body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"Name\": \"${this.label1}\",\n         \"description\": \"${this.label2}\",\n          \"openDates\": \"${this.label3}\",\n                \"city\": \"${this.label4}\",\n        \"email\": \"${this.email}\"                 }\n    }\n  ]\n}`,
       headers: {
           Authorization: `Bearer ${process.env.VUE_APP_KEY_AIR}`,

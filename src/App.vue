@@ -59,7 +59,10 @@ export default {
       open: false,
       flagRegister: true,
     }
-  }
+  },
+  methods: {
+    
+  },
 }
 </script>
 
