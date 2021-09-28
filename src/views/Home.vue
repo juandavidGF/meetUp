@@ -21,8 +21,9 @@
       </div>
     </div>
     <!-- How It Wokk -->
-    <div class="h-10 md:h-10" id="howItWork"></div>
+    <div class="h-20 md:h-10" id="howItWork"></div>
     <div class="features">
+      <h1 class="text-2xl font-bold pt-4 md:pt-16 md:text-5xl md:pb-0 md:pt-0">¿Cómo Fucina?</h1>
       <div class="row">
         <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
         <div>

@@ -41,11 +41,8 @@ export default {
   methods: {
     async next() { 
       if(this.firstName && this.secondName && this.cellPhone && this.email && this.city) {
-
         // console.log("ID_AIR", process.env.VUE_APP_ID_AIR);
         // console.log("VERCEL_ENV", process.env.VERCEL_ENV);
-
-
         let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR}`, {
           body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n         \"city\": \"${this.city}\",\n          \"secondName\": \"${this.secondName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n        \"email\": \"${this.email}\"                 }\n    }\n  ]\n}`,
           headers: {
