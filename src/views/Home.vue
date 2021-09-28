@@ -56,15 +56,15 @@
     </div>
     <!-- modal  -->
     <div v-if="modalOpen == true"
-    class="fixed z-20 pt-28 px-4 left-0 top-0 w-full h-full overflow-auto"
+    class="fixed z-20 pt-28 left-0 top-0 w-full h-full overflow-auto px-1 md:px-0"
     style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
-      <div class="bg-white w-72 m-auto rounded-md">
+      <div class="bg-white max-w-xs m-auto rounded-md">
         <div class="flex flex-row justify-between">
           <div></div>
           <div @click="next('close')" class="flex justify-end mr-2 pt-1 text-gray-500 cursor-pointer">X</div>
         </div>
         <!-- first -->
-        <div v-if="flag === 'first'" class="form px-4 pt-8">
+        <div v-if="flag === 'first'" class="form px-6 pt-8">
           <label for="firstName">Nombre</label>
           <input type="text" id="firstName" value="firstName" v-model="firstName">
           <br>
@@ -74,7 +74,7 @@
           <button @click="next('excuse')" class="bg-blue-400 w-full py-1 my-3 rounded">Siguiente</button>
         </div>
         <!-- excuse -->
-        <div v-if="flag === 'excuse'" class="form px-4 pt-8">
+        <div v-if="flag === 'excuse'" class="form px-6 pt-8">
           <p>Gracias por interesante, actualmente estamos realizando este experimento para nuestra empresa, nos contactaremos contigo para ayudarte a hacer los planes más interesantes de la ciudad</p>
           <button @click="next('close')" class="bg-blue-400 w-full py-1 my-3 rounded">Ok</button>
         </div>
@@ -352,7 +352,6 @@ body, html {
 .form {
   display: flex;
   flex-direction: column;
-  width: 250px;
   margin: 0 auto;
   padding: 1rem 2.5rem 1rem 2rem;
 }
