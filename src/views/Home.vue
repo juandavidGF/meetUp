@@ -3,13 +3,14 @@
     <section class="hero-image">
       <div class="hero-text mt-10">
         <h1>Encuentra planes interesantes con tus amigos o unete a nuevos grupos y conoce personas</h1>
-        <router-link class="btn" tag="button" to="/signUp">
-          Registrarse
-        </router-link>
+        <a class="btn" href="#activities">
+          Actividades
+        </a>
       </div>
     </section>
     <!-- How It Wokk -->
-    <div class="features" id="howItWork">
+    <div class="h-10 md:h-10" id="howItWork"></div>
+    <div class="features">
       <div class="row">
         <p>Crea planes privados para compartir con tus amigos o publicos para conocer personas</p>
         <div>
@@ -28,7 +29,7 @@
           <img src="https://images.unsplash.com/photo-1612599537672-64c5f1869280?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=334&q=80" alt="">
         </div>
       </div>
-      <div class="row">
+      <div class="row last">
         <p>Encuentra eventos que estan sucediendo ahora mismo</p>
         <div>
           <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">
@@ -36,24 +37,25 @@
       </div>
     </div>
     <!-- Avtivities -->
-    <div v-if="!loading" id="activities"
-    class="mb-10 mx-auto pt-4 px-2 max-w-5xl md:mx-0 md:pt-12 xl:max-w-6xl" style="margin-left: auto; margin-right:auto;">
-      <h1 class="text-2xl font-bold pb-14 pt-2 md:pt-16 md:text-5xl md:pb-28 md:pt-0">Actividades</h1>
+    <div class=" h-20 md:h-20" id="activities"></div>
+    <div v-if="!loading"
+    class="mb-10 mx-auto px-2 max-w-5xl md:mx-0 xl:max-w-6xl" style="margin-left: auto; margin-right:auto;">
+      <h1 class="text-2xl font-bold pb-14 pt-4 md:pt-16 md:text-5xl md:pb-28 md:pt-0">Actividades</h1>
       <div class="">
         <div v-for="site in sites" :key="site.id">
-          <CardLarge v-on:joinGroup="cta('joinGroup')" v-on:inviteFriends="cta('inviteFriends')"
-          :id="site.id" :name="site.fields.name" :description="site.fields.description" :image="site.fields.image" :city="site.fields.city" />
+          <CardLarge v-on:cta="cta"
+          :id="site.id" :name="site.fields.name" :shortDescription="site.fields.shortDescription" :image="site.fields.image" :city="site.fields.city" :price="site.fields.price" />
         </div>
       </div>
     </div>
     <div class="btn-section">
-      <router-link class="cta-2" tag="button" to="/signUp">
+      <!-- <router-link class="cta-2" tag="button" to="/signUp">
         Registrarse
       </router-link>
-      <div></div>
+      <div></div> -->
     </div>
     <!-- modal  -->
-    <div v-if="open == true"
+    <div v-if="modalOpen == true"
     class="fixed z-20 pt-28 px-4 left-0 top-0 w-full h-full overflow-auto"
     style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
       <div class="bg-white w-72 m-auto rounded-md">
@@ -61,30 +63,20 @@
           <div></div>
           <div @click="next('close')" class="flex justify-end mr-2 pt-1 text-gray-500 cursor-pointer">X</div>
         </div>
-        <!-- <h1 class="bg-gray-100 py-2 -mt-8">{{action}}</h1> -->
-        <div v-if="data=== 'first'" class="form px-4 pt-8">
+        <!-- first -->
+        <div v-if="flag === 'first'" class="form px-4 pt-8">
           <label for="firstName">Nombre</label>
           <input type="text" id="firstName" value="firstName" v-model="firstName">
           <br>
           <label for="cellPhone">Celular</label>
           <input type="number" id="cellPhone" value="cellPhone" v-model="cellPhone">
           <br>
-          <label for="email">Email</label>
-          <input type="text" id="email" value="email" v-model="email">
-          <br>
-          <button @click="next('first')" class="bg-blue-400 w-full py-1 my-3 rounded">Siguiente</button>
+          <button @click="next('excuse')" class="bg-blue-400 w-full py-1 my-3 rounded">Siguiente</button>
         </div>
-        <div v-if="data=== 'second'" class="form px-4 pt-8">
-          <label for="firstName">uno</label>
-          <input type="text" id="firstName" value="firstName" v-model="firstName">
-          <br>
-          <label for="cellPhone">dos</label>
-          <input type="number" id="cellPhone" value="cellPhone" v-model="cellPhone">
-          <br>
-          <label for="email">tres</label>
-          <input type="text" id="email" value="email" v-model="email">
-          <br>
-          <button @click="next('first')" class="bg-blue-400 w-full py-1 my-3 rounded">Siguiente</button>
+        <!-- excuse -->
+        <div v-if="flag === 'excuse'" class="form px-4 pt-8">
+          <p>Gracias por interesante, actualmente estamos realizando este experimento para nuestra empresa, nos contactaremos contigo para ayudarte a hacer los planes más interesantes de la ciudad</p>
+          <button @click="next('close')" class="bg-blue-400 w-full py-1 my-3 rounded">Ok</button>
         </div>
       </div>
     </div>
@@ -106,9 +98,14 @@ export default {
     return {
       sites: [],
       loading: false,
-      data: "first",
-      open: false,
-      action: ""
+      flag: "first",
+      modalOpen: false,
+      action: "",
+      evtId: "",
+      evtName: "",
+      firstName: "",
+      cellPhone: "",
+      
     }
   },
   async created() {
@@ -124,20 +121,43 @@ export default {
       .then(response => response);
 
     this.sites = records.records
-    console.log('records', records);
-    console.log('records.records[1].fields.name', records.records[1].fields.name);
+    // console.log('records', records);
+    // console.log('records.records[1].fields.name', records.records[1].fields.name);
   },
   methods: {
-    next(flag) {
-      if (flag === 'first') {
-        this.flag = second
-      } else if (flag === 'close') {
-        this.open = false
+    async next(flag) {
+
+
+      
+      if (flag === 'excuse') {
+        if(this.firstName && this.cellPhone && this.action && this.evtId && this.evtName) {
+          let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR}`, {
+            body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n              \"evtName\": \"${this.evtName}\",\n              \"evtId\": \"${this.evtId}\",\n           \"cta\": \"${this.action}\"                 }\n    }\n  ]\n}`,
+            headers: {
+              Authorization: `Bearer ${process.env.VUE_APP_KEY_AIR}`,
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+            }).then(res => res.json())
+            .catch(error => {console.error('Error:', error)})
+            .then(response => response);
+          
+          this.flag = flag
+        } else {
+          alert('debe llenar todos los campos')
+        }
+      } else if(flag === 'close') {
+        this.modalOpen = false
+        this.flag = "first"
+        this.firstName = ""
+        this.cellPhone = ""
       }
     },
-    cta(action) {
-      this.action = action
-      this.open = true
+    cta(evt, id, name) {
+      this.action = evt
+      this.evtId = id
+      this.evtName = name
+      this.modalOpen = true
     }
   },
 }
@@ -192,12 +212,12 @@ body, html {
   color: white;
 }
 
-.features {
-  margin-bottom: 3rem;
-}
-
 .row {
   margin: 4rem 1rem;
+}
+ 
+.last {
+  margin-bottom: 0;
 }
 
 .row > p {
@@ -223,6 +243,7 @@ body, html {
   background-color: black;
   display: flex;
   padding-top: 1rem;
+  min-height: 3.5rem;
 }
 
 .cta-2 {
@@ -267,14 +288,12 @@ body, html {
   }
 
   .features {
-    margin-top: 3rem;
     max-width: 1500px;
     margin: 3rem auto 0 auto;
   }
 
   .row {
     display: flex;
-    padding: 10px 0;
   }
 
   .row:nth-child(even) {

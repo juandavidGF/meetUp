@@ -7,11 +7,16 @@
     <div class="inline-block md:flex md:flex-col md:flex-grow max-h-10">
       <a href="#" class="block mt-1 text-sm leading-tight font-medium text-black hover:underline md:text-md">{{name}}</a>
       <!-- <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{ city }}</div> -->
-      <div id="description-p" class="mt-2 text-sm text-left text-gray-500 md:text-md">{{description}}</div>
+      <div id="description-p" class="mt-2 text-sm text-left text-gray-500 md:text-md">{{shortDescription}}</div>
     </div>
-    <div class="flex flex-col md:flex-row md:justify-end bg-white pb-3 pt-4">
-      <button @click="cta('joinGroup')" class="bg-blue-300 px-5 py-1 mb-2 rounded md:mx-3 md:mb-0">Unirme a un grupo</button>
-      <button @click="cta('inviteFriends')" class="bg-green-300 px-5 py-1 rounded md:mx-3">Ir con amigos</button>
+    <div class="flex flex-col md:flex-row md:justify-between bg-white pb-3 pt-4">
+      <div>
+        <p v-if="price != undefined" class="mb-2 ml-2 text-left text-gray-400">precio: {{price}}</p>
+      </div>
+      <div class="md:flex md:flex-row">
+        <button @click="cta('joinGroup')" class="bg-blue-300 px-5 py-1 mb-2 w-full md:w-auto rounded md:mx-3 md:mb-0">Unirme a un grupo</button>
+        <button @click="cta('inviteFriends')" class="bg-green-300 px-5 py-1 w-full md:w-auto rounded md:mx-3">Iinvitar amigos</button>
+      </div>
     </div>
   </div>
 </div>
@@ -19,10 +24,10 @@
 
 <script>
 export default {
-  props: ['id', 'name', 'description', 'image', 'city'],
+  props: ['id', 'name', 'shortDescription', 'image', 'city', 'price'],
   methods: {
     cta(action) {
-      this.$emit(action)
+      this.$emit('cta', action, this.id, this.name)
     }
   },
 }

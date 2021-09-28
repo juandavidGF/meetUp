@@ -42,8 +42,8 @@ export default {
     async next() { 
       if(this.firstName && this.secondName && this.cellPhone && this.email && this.city) {
 
-        console.log("ID_AIR", process.env.VUE_APP_ID_AIR);
-        console.log("VERCEL_ENV", process.env.VERCEL_ENV);
+        // console.log("ID_AIR", process.env.VUE_APP_ID_AIR);
+        // console.log("VERCEL_ENV", process.env.VERCEL_ENV);
 
 
         let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR}`, {
@@ -62,8 +62,7 @@ export default {
       } else {
         alert('Debes completar todos los campos')
       }
-    }
-
+    },
   },
 }
 </script>
