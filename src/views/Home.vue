@@ -8,6 +8,18 @@
         </a>
       </div>
     </section>
+    <!-- Avtivities -->
+    <div class=" h-20 md:h-20" id="activities"></div>
+    <div v-if="!loading"
+    class="mb-10 mx-auto px-2 max-w-5xl md:mx-0 xl:max-w-6xl" style="margin-left: auto; margin-right:auto;">
+      <h1 class="text-2xl font-bold pb-14 pt-4 md:pt-16 md:text-5xl md:pb-28 md:pt-0">Actividades</h1>
+      <div class="">
+        <div v-for="site in sites" :key="site.id">
+          <CardLarge v-on:cta="cta"
+          :id="site.id" :name="site.fields.name" :shortDescription="site.fields.shortDescription" :image="site.fields.image" :city="site.fields.city" :location="site.fields.location" :price="site.fields.price" />
+        </div>
+      </div>
+    </div>
     <!-- How It Wokk -->
     <div class="h-10 md:h-10" id="howItWork"></div>
     <div class="features">
@@ -36,18 +48,7 @@
         </div>
       </div>
     </div>
-    <!-- Avtivities -->
-    <div class=" h-20 md:h-20" id="activities"></div>
-    <div v-if="!loading"
-    class="mb-10 mx-auto px-2 max-w-5xl md:mx-0 xl:max-w-6xl" style="margin-left: auto; margin-right:auto;">
-      <h1 class="text-2xl font-bold pb-14 pt-4 md:pt-16 md:text-5xl md:pb-28 md:pt-0">Actividades</h1>
-      <div class="">
-        <div v-for="site in sites" :key="site.id">
-          <CardLarge v-on:cta="cta"
-          :id="site.id" :name="site.fields.name" :shortDescription="site.fields.shortDescription" :image="site.fields.image" :city="site.fields.city" :price="site.fields.price" />
-        </div>
-      </div>
-    </div>
+    <!-- footer -->
     <div class="btn-section">
       <!-- <router-link class="cta-2" tag="button" to="/signUp">
         Registrarse
