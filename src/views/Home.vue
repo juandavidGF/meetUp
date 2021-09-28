@@ -50,51 +50,27 @@
       </div>
     </div>
     <!-- footer -->
-    <div class="btn-section">
+    <div class="btn-section mt-20">
       <!-- <router-link class="cta-2" tag="button" to="/signUp">
         Registrarse
       </router-link>
       <div></div> -->
     </div>
     <!-- modal  -->
-    <div v-if="modalOpen == true"
-    class="fixed z-20 pt-28 left-0 top-0 w-full h-full overflow-auto px-1 md:px-0"
-    style="background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.4);">
-      <div class="bg-white max-w-xs m-auto rounded-md">
-        <div class="flex flex-row justify-between">
-          <div></div>
-          <div @click="next('close')" class="flex justify-end mr-2 pt-1 text-gray-500 cursor-pointer">X</div>
-        </div>
-        <!-- first -->
-        <div v-if="flag === 'first'" class="form px-6 pt-8">
-          <label for="firstName">Nombre</label>
-          <input type="text" id="firstName" value="firstName" v-model="firstName">
-          <br>
-          <label for="cellPhone">Celular</label>
-          <input type="number" id="cellPhone" value="cellPhone" v-model="cellPhone">
-          <br>
-          <button @click="next('excuse')" class="bg-blue-400 w-full py-1 my-3 rounded">Siguiente</button>
-        </div>
-        <!-- excuse -->
-        <div v-if="flag === 'excuse'" class="form px-6 pt-8">
-          <p>Gracias por interesante, actualmente estamos realizando este experimento para nuestra empresa, nos contactaremos contigo para ayudarte a hacer los planes más interesantes de la ciudad</p>
-          <button @click="next('close')" class="bg-blue-400 w-full py-1 my-3 rounded">Ok</button>
-        </div>
-      </div>
-    </div>
+    <ModalNameNumber v-if="modalOpen" v-on:next="next" />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import CardLarge from "../components/cardLarge.vue"
-import Modal from "../components/modal.vue"
+import ModalNameNumber from "../components/modalNameNumber.vue"
 
 export default {
   name: 'Home',
   components: {
     CardLarge,
-    Modal
+    ModalNameNumber,
   },
   data() {
     return {
@@ -104,10 +80,7 @@ export default {
       modalOpen: false,
       action: "",
       evtId: "",
-      evtName: "",
-      firstName: "",
-      cellPhone: "",
-      
+      evtName: "",      
     }
   },
   async created() {
@@ -123,15 +96,15 @@ export default {
       .then(response => response);
 
     this.sites = records.records
-    console.log('records', records);
+    // console.log('records', records);
     // console.log('records.records[1].fields.name', records.records[1].fields.name);
   },
   methods: {
-    async next(flag) {
-
-
-      
+    async next(flag, firstName, cellPhone) {     
       if (flag === 'excuse') {
+        console.log('home', firstName, cellPhone, this.action, this.evtId, this.evtName);
+        this.firstName = firstName
+        this.cellPhone = cellPhone
         if(this.firstName && this.cellPhone && this.action && this.evtId && this.evtName) {
           let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR}`, {
             body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                \"cellPhone\": \"${this.cellPhone}\",\n              \"evtName\": \"${this.evtName}\",\n              \"evtId\": \"${this.evtId}\",\n           \"cta\": \"${this.action}\"                 }\n    }\n  ]\n}`,
@@ -146,21 +119,22 @@ export default {
           
           this.flag = flag
         } else {
-          alert('debes llenar todos los campos')
+          alert('debes llenar todos los campos - home')
         }
       } else if(flag === 'close') {
-        this.modalOpen = false
+        // this.modalOpen = false
         this.flag = "first"
         this.firstName = ""
         this.cellPhone = ""
+        this.modalOpen = false
       }
     },
-    cta(evt, id, name) {
-      this.action = evt
+    cta(action, id, name) {
+      this.action = action
       this.evtId = id
       this.evtName = name
       this.modalOpen = true
-    }
+    },
   },
 }
 </script>

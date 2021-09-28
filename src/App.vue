@@ -18,7 +18,7 @@
             </svg>
           </button>
         </div>
-        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+        <nav :class="{'flex': open, 'hidden': !open}" class="flex-col flex-grow pb-4 md:pb-0 md:flex md:flex-row md:justify-end">
           <!-- <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 rounded-lg dark-mode:bg-gray-700 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline" href="#">¿Como Funciona?</a> -->
           <a 
           v-show="flagRegister"
@@ -35,7 +35,7 @@
             Ver actividades
           </a>
           <a v-show="flagRegister"
-          @click="open = !open"
+          @click="createEvt()"
           class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
             Crear Evento
           </a>
@@ -43,25 +43,67 @@
             href="#">
               Contact
             </a> -->
-          
         </nav>
       </div>
     </div>
-
+    <!-- modal  -->
+    <ModalNameNumber v-if="modalOpen" v-on:next="next" />
+    <!-- router view -->
     <router-view/>
   </div>
 </template>
 
 <script>
+import ModalNameNumber from "./components/modalNameNumber.vue"
 export default {
+  components: {
+    ModalNameNumber,
+  },
   data() {
     return {
       open: false,
       flagRegister: true,
+      modalOpen: false,
+      flag: 'first',
+      firstName: "",
+      cellPhone: "",
+      createEvtModal: 'createEvt'
     }
   },
   methods: {
-    
+    createEvt() {
+      this.open = !this.open
+      this.modalOpen = true
+    },
+    async next(flag, firstName, cellPhone) {     
+      if (flag === 'excuse') {
+        // console.log('home', firstName, cellPhone);
+        this.firstName = firstName
+        this.cellPhone = cellPhone
+        if(this.firstName && this.cellPhone) {
+          let createUser = await fetch(`https://api.airtable.com/v0/${process.env.VUE_APP_ID_AIR}/${process.env.VUE_APP_TABLE_AIR_SUGGESTED_PLACES}`, {
+            body: `{\n  \"records\": [\n    {\n      \"fields\": {\n              \"firstName\": \"${this.firstName}\",\n                \"cellPhone\": \"${this.cellPhone}\"                 }\n    }\n  ]\n}`,
+            headers: {
+              Authorization: `Bearer ${process.env.VUE_APP_KEY_AIR}`,
+                "Content-Type": "application/json"
+            },
+            method: "POST"
+            }).then(res => res.json())
+            .catch(error => {console.error('Error:', error)})
+            .then(response => response);
+          
+          this.flag = flag
+        } else {
+          alert('debes llenar todos los campos - home')
+        }
+      } else if(flag === 'close') {
+        // this.modalOpen = false
+        this.flag = "first"
+        this.firstName = ""
+        this.cellPhone = ""
+        this.modalOpen = false
+      }
+    },
   },
 }
 </script>
