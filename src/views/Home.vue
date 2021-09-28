@@ -121,7 +121,7 @@ export default {
       .then(response => response);
 
     this.sites = records.records
-    // console.log('records', records);
+    console.log('records', records);
     // console.log('records.records[1].fields.name', records.records[1].fields.name);
   },
   methods: {
@@ -144,7 +144,7 @@ export default {
           
           this.flag = flag
         } else {
-          alert('debe llenar todos los campos')
+          alert('debes llenar todos los campos')
         }
       } else if(flag === 'close') {
         this.modalOpen = false
