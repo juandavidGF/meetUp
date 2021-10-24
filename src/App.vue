@@ -91,7 +91,7 @@ export default {
             }).then(res => res.json())
             .catch(error => {console.error('Error:', error)})
             .then(response => response);
-          
+        
           this.flag = flag
         } else {
           alert('debes llenar todos los campos - home')

@@ -2,7 +2,7 @@
   <div class="home">
     <section class="hero-image">
       <div class="hero-text mt-10">
-        <h1>Encuentra planes interesantes con tus amigos o unete a nuevos grupos y conoce personas</h1>
+        <h1>Unete a los mejores planes y conocer nuevas personas</h1>
         <a class="btn" href="#activities">
           Actividades
         </a>
